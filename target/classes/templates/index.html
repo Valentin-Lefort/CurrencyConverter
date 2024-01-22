@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Currency Converter</title>
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/style.css}" />
+</head>
+<body>
+<h1>Currency Converter</h1>
+
+<form class="container" action="#" th:action="@{/}" th:object="${formHandling}" method="post">
+    <div class="card">
+        <input type="text" name="amount" placeholder="Amount" th:field="*{amount}" />
+        <div class="s-o">
+            <select>
+                <option class="currencyFullName" value="ass">Australian dollar</option>
+            </select>
+            <select class="currency" name="from" id="from" th:field="*{fromCurrency}">
+                <option value="USD">USD $</option>
+                <option value="EUR">EUR €</option>
+                <option value="JPY">YEN ¥</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="card2">
+        <input type="text" name="amount" placeholder="Amount" th:field="*{result}" />
+        <div class="s-o">
+            <select>
+                <option class="currencyFullName" value="ass">Australian dollar</option>
+            </select>
+<!--            <select class="currency" name="to" id="to" th:field="*{toCurrency}">-->
+<!--                <option value="USD">USD $</option>-->
+<!--                <option value="EUR">EUR €</option>-->
+<!--                <option value="JPY">YEN ¥</option>-->
+<!--            </select>-->
+        </div>
+    </div>
+    <select name="to" id="to" th:field="*{toCurrency}">
+        <option value="USD">USD $</option>
+        <option value="EUR" selected>EUR €</option>
+        <option value="JPY">JPY ¥</option>
+    </select>
+    <button type="submit">Convert</button>
+    <button type="reset">Reset</button>
+<!--    <p th:text="${formHandling.result}" />-->
+</form>
+</body>
+</html>

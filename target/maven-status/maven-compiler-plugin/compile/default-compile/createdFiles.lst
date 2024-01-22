@@ -1,0 +1,6 @@
+org/currency/currencyconverter/component/ApiCall.class
+org/currency/currencyconverter/CurrencyConverterApplication.class
+org/currency/currencyconverter/controller/WebController.class
+org/currency/currencyconverter/component/ApiComponent.class
+org/currency/currencyconverter/model/FormHandling.class
+org/currency/currencyconverter/component/ToEuroConverter.class
