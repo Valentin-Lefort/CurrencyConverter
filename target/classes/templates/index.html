@@ -3,47 +3,98 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Currency Converter</title>
-    <link rel="stylesheet" th:href="@{/styles/cssandjs/style.css}" />
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/main.css}" />
+    <script th:src="@{/styles/cssandjs/script.js}"></script>
 </head>
 <body>
 <h1>Currency Converter</h1>
 
-<form class="container" action="#" th:action="@{/}" th:object="${formHandling}" method="post">
-    <div class="card">
-        <input type="text" name="amount" placeholder="Amount" th:field="*{amount}" />
-        <div class="s-o">
-            <select>
-                <option class="currencyFullName" value="ass">Australian dollar</option>
-            </select>
-            <select class="currency" name="from" id="from" th:field="*{fromCurrency}">
-                <option value="USD">USD $</option>
-                <option value="EUR">EUR €</option>
-                <option value="JPY">YEN ¥</option>
-            </select>
+<form class="max-w-xl mx-auto mt-16">
+    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 items-center mb-4">
+        <div class="flex flex-col">
+            <input type="number" id="fiat-currency-input" class="block w-full p-2.5 text-sm text-gray-900 bg-gray-50 rounded-s-lg border-e-gray-50 border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-e-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 outline-none" placeholder="421" required="">
+            <div class="flex space-x-4 mt-4">
+                <button id="dropdown-fiat-currency-button" type="button" class="p-3 text-sm font-medium text-gray-500 focus:outline-none bg-gray-100 rounded-lg hover:bg-gray-200 hover:text-gray-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
+                    <span>🇺🇸 USD</span>
+                    <span>↓</span>
+                </button>
+                <div id="dropdown-fiat-currency" class="absolute top-full left-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-36 dark:bg-gray-700">
+                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-fiat-currency-button">
+                        <li>
+                            <button type="button" class="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+                                <div class="inline-flex items-center">
+                                    <span>🇺🇸 USD</span>
+                                </div>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+                                <div class="inline-flex items-center">
+                                    <span>🇪🇺 EUR</span>
+                                </div>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+                                <div class="inline-flex items-center">
+                                    <span>🇨🇦 CAD</span>
+                                </div>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+                                <div class="inline-flex items-center">
+                                    <span>🇬🇧 GBP</span>
+                                </div>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+                                <div class="inline-flex items-center">
+                                    <span>🇯🇵 JPY</span>
+                                </div>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+                                <div class="inline-flex items-center">
+                                    <span>🇧🇬 BGN</span>
+                                </div>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <button type="button" class="p-3 text-sm font-medium text-gray-500 focus:outline-none bg-gray-100 rounded-lg hover:bg-gray-200 hover:text-gray-900 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
+                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 10H1m0 0 3-3m-3 3 3 3m1-9h10m0 0-3 3m3-3-3-3"></path>
+                </svg>
+                <span class="sr-only">Convert currency</span>
+            </button>
+        </div>
+        <div class="relative flex">
+            <div class="relative inline-block">
+                <button id="dropdown-crypto-currency-button" data-dropdown-toggle="dropdown-crypto-currency" class="flex-shrink-0 z-10 inline-flex items-center w-full p-2.5 text-sm text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-e-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600 border border-gray-300 focus:border-blue-500 dark:border-gray-600 dark:focus:border-blue-500" type="button">
+                    <span>🇪🇺 EUR</span>
+                    <span>↓</span>
+                </button>
+                <div id="dropdown-crypto-currency" class="absolute top-full left-0 z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-36 dark:bg-gray-700">
+                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-crypto-currency-button">
+                        <li>
+                            <button type="button" class="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+                                <div class="inline-flex items-center">
+                                    <span>🇪🇺 EUR</span>
+                                </div>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 
 
-    <div class="card2">
-        <input type="text" name="amount" placeholder="Amount" th:field="*{result}" />
-        <div class="s-o">
-            <select>
-                <option class="currencyFullName" value="ass">Australian dollar</option>
-            </select>
-<!--            <select class="currency" name="to" id="to" th:field="*{toCurrency}">-->
-<!--                <option value="USD">USD $</option>-->
-<!--                <option value="EUR">EUR €</option>-->
-<!--                <option value="JPY">YEN ¥</option>-->
-<!--            </select>-->
-        </div>
-    </div>
-    <select name="to" id="to" th:field="*{toCurrency}">
-        <option value="USD">USD $</option>
-        <option value="EUR" selected>EUR €</option>
-        <option value="JPY">JPY ¥</option>
-    </select>
-    <button type="submit">Convert</button>
-    <button type="reset">Reset</button>
+</form>
 <!--    <p th:text="${formHandling.result}" />-->
 </form>
 </body>
